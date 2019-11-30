@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import "./Items.css";
+import { inject, observer } from "mobx-react";
 
-var Parser = require("fast-xml-parser").j2xParser;
-var defaultOptions = {
+let Parser = require("fast-xml-parser").j2xParser;
+let defaultOptions = {
   attributeNamePrefix: "@_",
   attrNodeName: "@", //default is false
   textNodeName: "#text",
@@ -14,8 +15,8 @@ var defaultOptions = {
   indentBy: "  ",
   supressEmptyNode: false
 };
-var parser = new Parser(defaultOptions);
-var xml = parser.parse({ make: "make", do: "do" });
+let parser = new Parser(defaultOptions);
+let xml = parser.parse({ make: "make", do: "do" });
 
 const items = [
   { name: "Bike", price: 100 },
@@ -26,7 +27,7 @@ const items = [
   { name: "Gum", price: 0.1 }
 ];
 
-export default class Items extends Component {
+class Items extends Component {
   options = items.map(item => (
     <div className={"container"}>
       <FaMinus />
@@ -36,7 +37,13 @@ export default class Items extends Component {
     </div>
   ));
 
+  componentDidMount() {
+    console.log(this.props.shopStore.total);
+  }
+
   render() {
     return <div>{this.options}</div>;
   }
 }
+
+export default inject("shopStore")(observer(Items));
