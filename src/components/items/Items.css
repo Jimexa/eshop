@@ -1,0 +1,5 @@
+.container {
+  justify-content: space-evenly;
+  justify-items: flex-end;
+  color: aliceblue;
+}
