@@ -1,5 +1,10 @@
-.container {
-  justify-content: space-evenly;
-  justify-items: flex-end;
-  color: aliceblue;
+.plusMinus :hover {
+  padding: 5%;
+  cursor: pointer;
+  border: 1px solid rgb(6, 209, 245);
+}
+
+.cart {
+  margin-top: 5%;
+  margin-bottom: 5%;
 }

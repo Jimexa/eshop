@@ -4,7 +4,7 @@ import { persist, create } from "mobx-persist";
 class ShopStore {
   total = 0;
   itemList = [
-    { name: "Mik", price: 1.5 },
+    { name: "Milk", price: 1.5 },
     { name: "Beer", price: 2 },
     { name: "Bucket", price: 10 },
     { name: "1 Kg Blue cheese", price: 21 },
