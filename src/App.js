@@ -1,16 +1,24 @@
 import React from "react";
 import "./App.css";
+import { inject, observer } from "mobx-react";
 
-import Items from "./components/items/Items";
+import LoadScreen from "./components/loadScreen/LoadScreen";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Welcome to our e-shop</h1>
-      <h4>Please select the items you want to buy</h4>
-      <Items />
-    </div>
-  );
-}
+const App = inject("shopStore")(
+  observer(({ shopStore }) => {
+    // let { cartItemList } = shopStore;
+    // if (cartItemList.length !== 0 || cartItemList === undefined) {
+    //   console.log("fill cart list");
+    //   shopStore.createCart();
+    // }
+    return (
+      <div className="App">
+        <h1>Welcome to our e-shop</h1>
+        <h4>Please select the items you want to buy</h4>
+        <LoadScreen />
+      </div>
+    );
+  })
+);
 
 export default App;

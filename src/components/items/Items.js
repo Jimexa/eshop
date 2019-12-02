@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import "./Items.css";
 import { inject, observer } from "mobx-react";
+import { Col, Row, Container } from "reactstrap";
 
 let Parser = require("fast-xml-parser").j2xParser;
 let defaultOptions = {
@@ -18,32 +19,62 @@ let defaultOptions = {
 let parser = new Parser(defaultOptions);
 let xml = parser.parse({ make: "make", do: "do" });
 
-const items = [
-  { name: "Bike", price: 100 },
-  { name: "Beer", price: 100 },
-  { name: "Playstation4", price: 249 },
-  { name: "Vacuum cleaner", price: 89 },
-  { name: "Chair", price: 349 },
-  { name: "Gum", price: 0.1 }
-];
+const Items = inject("shopStore")(
+  observer(({ shopStore }) => {
+    let options = shopStore.itemList.map((item, index) => (
+      <div className={"container"}>
+        <FaMinus
+          onClick={() => {
+            shopStore.deleteItem(index);
+            shopStore.calculateTotal();
+          }}
+        />
+        <a style={{ marginLeft: 10, marginRight: 10 }}>{item.name}</a>
+        <a style={{ marginRight: 10 }}>{item.price}$</a>
+        <FaPlus
+          onClick={() => {
+            shopStore.addItem(index);
+            console.log(shopStore.itemList);
+            shopStore.calculateTotal();
+          }}
+        />
+      </div>
+    ));
 
-class Items extends Component {
-  options = items.map(item => (
-    <div className={"container"}>
-      <FaMinus />
-      <a style={{ marginLeft: 10, marginRight: 10 }}>{item.name}</a>
-      <a style={{ marginRight: 10 }}>{item.price}</a>
-      <FaPlus />
-    </div>
-  ));
+    let cart = shopStore.cartItemList.map(cartitem => {
+      if (cartitem.amount === 0) {
+        return null;
+      } else {
+        return (
+          <div className="container">
+            <a>{cartitem.amount}</a>
+            <a>{cartitem.name}</a>
+          </div>
+        );
+      }
+    });
 
-  componentDidMount() {
-    console.log(this.props.shopStore.total);
-  }
+    let { itemList } = shopStore;
+    return (
+      <div>
+        {options}
+        <h3>Cart</h3>
+        {cart}
+        <div>
+          {!shopStore.discount ? (
+            <div>Total: {shopStore.total} $</div>
+          ) : (
+            <div>
+              <div style={{ textDecoration: "line-through" }}>
+                Total: {shopStore.total} $
+              </div>
+              <div>New total: {shopStore.total * 0.9} $</div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  })
+);
 
-  render() {
-    return <div>{this.options}</div>;
-  }
-}
-
-export default inject("shopStore")(observer(Items));
+export default Items;
