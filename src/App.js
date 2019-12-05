@@ -6,11 +6,8 @@ import LoadScreen from "./components/loadScreen/LoadScreen";
 
 const App = inject("shopStore")(
   observer(({ shopStore }) => {
-    // let { cartItemList } = shopStore;
-    // if (cartItemList.length !== 0 || cartItemList === undefined) {
-    //   console.log("fill cart list");
-    //   shopStore.createCart();
-    // }
+    let { checkCart } = shopStore;
+    checkCart();
     return (
       <div className="App">
         <h1>Welcome to our e-shop</h1>

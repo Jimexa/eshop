@@ -44,6 +44,13 @@ class ShopStore {
     console.log(sum);
   };
 
+  checkCart = () => {
+    if (this.cartItemList === 0) {
+      console.log("fill cart", this.cartItemList);
+      this.createCart();
+    }
+  };
+
   createCart = () => {
     this.cartItemList = this.itemList.map(item => {
       let obj = item;
@@ -60,7 +67,8 @@ decorate(ShopStore, {
   cartItemList: [persist("list"), observable],
   addItem: action,
   createCart: action,
-  calculateTotal: action
+  calculateTotal: action,
+  checkCart: action
 });
 
 const hydrate = create();
