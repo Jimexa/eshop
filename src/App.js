@@ -6,7 +6,7 @@ import LoadScreen from "./components/loadScreen/LoadScreen";
 
 const App = inject("shopStore")(
   observer(({ shopStore }) => {
-    let { checkCart } = shopStore;
+    const { checkCart } = shopStore;
     checkCart();
     return (
       <div className="App">

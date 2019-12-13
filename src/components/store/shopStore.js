@@ -45,7 +45,7 @@ class ShopStore {
   };
 
   checkCart = () => {
-    if (this.cartItemList === 0) {
+    if (this.cartItemList.length === 0) {
       console.log("fill cart", this.cartItemList);
       this.createCart();
     }

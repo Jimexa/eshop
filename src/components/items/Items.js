@@ -6,6 +6,7 @@ import { Col, Row, Container, Button } from "reactstrap";
 
 const Items = inject("shopStore")(
   observer(({ shopStore }) => {
+    shopStore.calculateTotal();
     const buy = () => {
       let Parser = require("fast-xml-parser").j2xParser;
       let defaultOptions = {

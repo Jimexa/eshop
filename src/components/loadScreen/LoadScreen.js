@@ -4,7 +4,8 @@ import Items from "../items/Items";
 
 class LoadScreen extends Component {
   render() {
-    return <div>{this.props.shopStore.loading ? null : <Items />}</div>;
+    const { loading } = this.props.shopStore;
+    return <div>{loading ? null : <Items />}</div>;
   }
 }
 
